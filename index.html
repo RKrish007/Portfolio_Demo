@@ -29,6 +29,9 @@
 
 <body>
 
+  <!-- Background Animated Network Canvas -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
   <!-- ==========================================
        HEADER & NAVIGATION
        ========================================== -->
@@ -40,10 +43,10 @@
 
       <nav class="nav-links" id="main-navigation" aria-label="Main Navigation">
         <a href="#about" class="nav-link" id="nav-about">About</a>
+        <a href="#education" class="nav-link" id="nav-education">Education</a>
         <a href="#experience" class="nav-link" id="nav-experience">Experience</a>
         <a href="#accomplishments" class="nav-link" id="nav-accomplishments">Projects</a>
         <a href="#skills" class="nav-link" id="nav-skills">Skills</a>
-        <a href="#education" class="nav-link" id="nav-education">Education</a>
         <a href="#contact" class="nav-link" id="nav-contact">Contact</a>
       </nav>
 
@@ -140,9 +143,9 @@
         <!-- Interactive Card Visual -->
         <div class="hero-visual reveal delay-200">
           <div class="hero-mesh"></div>
-          <div class="hero-avatar-card" style="width: 380px;">
-            <img src="images/infrastructure.png" alt="Cloud Infrastructure Architecture Illustration"
-              class="hero-avatar-image" id="hero-graphic" style="height: 250px;">
+          <div class="hero-avatar-card" style="width: px;">
+            <img src="images/krishnan.jpg" alt="Krishnan Narayanan Portrait" class="hero-avatar-image" id="hero-graphic"
+              style="height: 310px; object-fit: cover;">
             <div class="avatar-info">
               <div>
                 <h3 style="font-size: 1.1rem; margin-bottom: 0.1rem;">Krishnan Narayanan</h3>
@@ -202,9 +205,65 @@
     </section>
 
     <!-- ==========================================
+         EDUCATION SECTION
+         ========================================== -->
+    <section id="education" style="background-color: var(--bg-secondary);">
+      <div class="container">
+        <h2 class="section-title reveal">Education &amp; Qualifications</h2>
+        <p class="section-subtitle reveal">Academic training grounding my theoretical systems and infrastructure
+          framework.</p>
+
+        <div class="timeline" style="max-width: 800px;">
+          <!-- Masters degree -->
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="timeline-header">
+                <div>
+                  <h3 class="timeline-role">MSc Information Technology Management</h3>
+                  <p class="timeline-company">Berlin School of Business and Innovation (BSBI), University of Creative
+                    Arts</p>
+                </div>
+                <span class="timeline-duration">05/2025 – Present</span>
+              </div>
+              <p
+                style="font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">
+                Berlin, Germany</p>
+              <div class="timeline-desc" style="margin-top: 0.5rem;">
+                <p>Postgraduate study focusing on business IT architectures, project operations, enterprise compliance,
+                  and advanced cloud systems methodologies.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bachelors degree -->
+          <div class="timeline-item reveal delay-100">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="timeline-header">
+                <div>
+                  <h3 class="timeline-role">Bachelor of Computer Applications (BCA)</h3>
+                  <p class="timeline-company">Guru Nanak College</p>
+                </div>
+                <span class="timeline-duration">06/2019 – 07/2022</span>
+              </div>
+              <p
+                style="font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">
+                Chennai, India</p>
+              <div class="timeline-desc" style="margin-top: 0.5rem;">
+                <p>Graduated with a core score of <strong>80%</strong>. Groundwork in computer science core principles,
+                  relational databases, data structures, network configuration, and systems analysis.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
          EXPERIENCE SECTION
          ========================================== -->
-    <section id="experience" style="background-color: var(--bg-secondary);">
+    <section id="experience">
       <div class="container">
         <h2 class="section-title reveal">Professional Experience</h2>
         <p class="section-subtitle reveal">A chronological record of hands-on data center infrastructure and systems
@@ -260,7 +319,7 @@
     <!-- ==========================================
          ACCOMPLISHMENTS & CORE PROJECTS SECTION
          ========================================== -->
-    <section id="accomplishments">
+    <section id="accomplishments" style="background-color: var(--bg-secondary);">
       <div class="container">
         <h2 class="section-title reveal">Key Deployments &amp; Projects</h2>
         <p class="section-subtitle reveal">A visual breakdown of core technical transformations managed during my
@@ -291,9 +350,11 @@
                 <span class="project-tag">Automation</span>
               </div>
               <h3 class="project-title">Enterprise Operating System Migration</h3>
-              <p class="project-desc">Planned and executed a multi-phased migration of 70% of server infrastructure from
-                RHEL 7 to RHEL 8 and 9. Used Leapp software to verify dependency mapping, mitigate operational risks,
-                and automate post-upgrade validation.</p>
+              <p class="project-desc">Planned and executed a multi-phased enterprise migration of 70% of production
+                server infrastructure from Red Hat Enterprise Linux 7 to versions 8 and 9. Managed strict dependency
+                analysis using Leapp toolkits to guarantee zero downtime during version jumps. Orchestrated automated
+                pre-flight checks and playbook executions across 700+ virtual and physical server instances, mitigating
+                critical upgrade risks.</p>
             </div>
           </div>
 
@@ -323,9 +384,11 @@
                 <span class="project-tag">Hyper-V</span>
               </div>
               <h3 class="project-title">Hyper-Converged Virtualization Cluster</h3>
-              <p class="project-desc">Deployed Nutanix AOS clusters from bare metal, encompassing initial physical rack
-                integrations, network zoning, cluster configurations, and hypervisor validations. Conducted rigorous POC
-                evaluation on 55+ hypervisor targets.</p>
+              <p class="project-desc">Deployed hyper-converged Nutanix AOS virtualization clusters from bare metal,
+                encompassing initial physical rack integrations, storage fabric rules, virtual network zoning, and
+                hypervisor validations. Designed resilient vSphere/ESXi and Hyper-V clustering configurations to host
+                critical corporate databases. Conducted rigorous POC evaluation on 55+ hypervisor nodes under heavy
+                failover scenarios.</p>
             </div>
           </div>
 
@@ -355,9 +418,46 @@
                 <span class="project-tag">Cost Audits</span>
               </div>
               <h3 class="project-title">Ubuntu-Based Workspace Architecture</h3>
-              <p class="project-desc">Constructed an efficient, lightweight Ubuntu-based virtual desktop workspace
-                profile. Successfully packaged custom corporate suites, eliminating redundant workstation licenses and
-                ensuring fast virtual boot timelines.</p>
+              <p class="project-desc">Constructed an efficient, secure, and lightweight virtualized workspace
+                architecture based on custom Ubuntu Desktop images. Packaged enterprise developer suites with secure
+                shell profiles, deployed via KVM hypervisors. Eliminated redundant corporate workstation OS licenses to
+                reduce operating costs by 28%, while reducing workspace deploy latencies.</p>
+            </div>
+          </div>
+
+          <!-- Project 4: Customer Churn Analytics -->
+          <div class="project-card reveal delay-300">
+            <div class="project-img-wrapper">
+              <img src="images/churn.png" alt="Customer churn analytics visualization mockup" class="project-image"
+                id="project4-img">
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a href="https://github.com/RKrish007/BSBI-Assignment-ML01.git" target="_blank"
+                    rel="noopener noreferrer" class="project-btn" aria-label="View Source on GitHub">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      style="width: 20px; height: 20px;">
+                      <path
+                        d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4">
+                      </path>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="project-tag">Python</span>
+                <span class="project-tag">Jupyter</span>
+                <span class="project-tag">Pandas</span>
+                <span class="project-tag">Data Science</span>
+              </div>
+              <h3 class="project-title">Customer Churn Analytics System</h3>
+              <p class="project-desc">Designed an end-to-end Python-based data science pipeline using Pandas, NumPy, and
+                Seaborn to analyze, clean, and segment user engagement data for a subscription music streaming platform.
+                Profiled behavioral trends across 100k+ users to link high skip-rates and subscription tiers to
+                subscriber lifetime value, translating mathematical metrics into actionable churn-mitigation campaigns.
+              </p>
             </div>
           </div>
         </div>
@@ -367,7 +467,7 @@
     <!-- ==========================================
          TECHNICAL CERTIFICATIONS & ACHIEVEMENTS
          ========================================== -->
-    <section id="certifications" style="background-color: var(--bg-secondary);">
+    <section id="certifications">
       <div class="container">
         <h2 class="section-title reveal">Certifications &amp; Achievements</h2>
         <p class="section-subtitle reveal">Verified credentials and professional accolades validating my administrative
@@ -444,7 +544,7 @@
     <!-- ==========================================
          SKILLS SECTION
          ========================================== -->
-    <section id="skills">
+    <section id="skills" style="background-color: var(--bg-secondary);">
       <div class="container">
         <h2 class="section-title reveal">Technical Skills &amp; Competencies</h2>
         <p class="section-subtitle reveal">A visual rating of core skills developed through production systems
@@ -457,40 +557,44 @@
               <span>🖥️</span> Operating Systems &amp; Core Administration
             </h3>
             <div class="skills-grid">
-              <div class="skill-card" data-percentage="100">
-                <div class="skill-header">
-                  <span class="skill-name">Linux (RHEL, Ubuntu)</span>
-                  <span class="skill-percentage">100%</span>
-                </div>
-                <div class="skill-bar-bg">
-                  <div class="skill-bar-fill"></div>
-                </div>
-              </div>
-              <div class="skill-card" data-percentage="90">
-                <div class="skill-header">
-                  <span class="skill-name">Windows Server</span>
-                  <span class="skill-percentage">90%</span>
-                </div>
-                <div class="skill-bar-bg">
-                  <div class="skill-bar-fill"></div>
+              <div class="skill-card" data-level="5">
+                <span class="skill-name">Linux (RHEL, Ubuntu)</span>
+                <div class="skill-dots">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
                 </div>
               </div>
-              <div class="skill-card" data-percentage="100">
-                <div class="skill-header">
-                  <span class="skill-name">Data Center Operations</span>
-                  <span class="skill-percentage">100%</span>
-                </div>
-                <div class="skill-bar-bg">
-                  <div class="skill-bar-fill"></div>
+              <div class="skill-card" data-level="4">
+                <span class="skill-name">Windows Server</span>
+                <div class="skill-dots">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
                 </div>
               </div>
-              <div class="skill-card" data-percentage="100">
-                <div class="skill-header">
-                  <span class="skill-name">Incident Management &amp; RCA</span>
-                  <span class="skill-percentage">100%</span>
+              <div class="skill-card" data-level="5">
+                <span class="skill-name">Data Center Operations</span>
+                <div class="skill-dots">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
                 </div>
-                <div class="skill-bar-bg">
-                  <div class="skill-bar-fill"></div>
+              </div>
+              <div class="skill-card" data-level="5">
+                <span class="skill-name">Incident Management &amp; RCA</span>
+                <div class="skill-dots">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
                 </div>
               </div>
             </div>
@@ -502,40 +606,44 @@
               <span>☁️</span> Virtualization Hypervisors &amp; Cloud Platforms
             </h3>
             <div class="skills-grid">
-              <div class="skill-card" data-percentage="90">
-                <div class="skill-header">
-                  <span class="skill-name">VMware vSphere / ESXi</span>
-                  <span class="skill-percentage">90%</span>
-                </div>
-                <div class="skill-bar-bg">
-                  <div class="skill-bar-fill"></div>
-                </div>
-              </div>
-              <div class="skill-card" data-percentage="90">
-                <div class="skill-header">
-                  <span class="skill-name">Nutanix AOS Clustered Stack</span>
-                  <span class="skill-percentage">90%</span>
-                </div>
-                <div class="skill-bar-bg">
-                  <div class="skill-bar-fill"></div>
+              <div class="skill-card" data-level="4">
+                <span class="skill-name">VMware vSphere / ESXi</span>
+                <div class="skill-dots">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
                 </div>
               </div>
-              <div class="skill-card" data-percentage="80">
-                <div class="skill-header">
-                  <span class="skill-name">Microsoft Azure Cloud</span>
-                  <span class="skill-percentage">80%</span>
-                </div>
-                <div class="skill-bar-bg">
-                  <div class="skill-bar-fill"></div>
+              <div class="skill-card" data-level="4">
+                <span class="skill-name">Nutanix AOS Clustered Stack</span>
+                <div class="skill-dots">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
                 </div>
               </div>
-              <div class="skill-card" data-percentage="75">
-                <div class="skill-header">
-                  <span class="skill-name">Amazon Web Services (AWS)</span>
-                  <span class="skill-percentage">75%</span>
+              <div class="skill-card" data-level="4">
+                <span class="skill-name">Microsoft Azure Cloud</span>
+                <div class="skill-dots">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
                 </div>
-                <div class="skill-bar-bg">
-                  <div class="skill-bar-fill"></div>
+              </div>
+              <div class="skill-card" data-level="3">
+                <span class="skill-name">Amazon Web Services (AWS)</span>
+                <div class="skill-dots">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
                 </div>
               </div>
             </div>
@@ -547,88 +655,35 @@
               <span>⚙️</span> Automation &amp; Language Proficiencies
             </h3>
             <div class="skills-grid">
-              <div class="skill-card" data-percentage="65">
-                <div class="skill-header">
-                  <span class="skill-name">Ansible Automation</span>
-                  <span class="skill-percentage">65%</span>
-                </div>
-                <div class="skill-bar-bg">
-                  <div class="skill-bar-fill"></div>
-                </div>
-              </div>
-              <div class="skill-card" data-percentage="100">
-                <div class="skill-header">
-                  <span class="skill-name">English</span>
-                  <span class="skill-percentage">100%</span>
-                </div>
-                <div class="skill-bar-bg">
-                  <div class="skill-bar-fill"></div>
+              <div class="skill-card" data-level="3">
+                <span class="skill-name">Ansible Automation</span>
+                <div class="skill-dots">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
                 </div>
               </div>
-              <div class="skill-card" data-percentage="20">
-                <div class="skill-header">
-                  <span class="skill-name">German</span>
-                  <span class="skill-percentage">20%</span>
-                </div>
-                <div class="skill-bar-bg">
-                  <div class="skill-bar-fill"></div>
+              <div class="skill-card" data-level="5">
+                <span class="skill-name">English</span>
+                <div class="skill-dots">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================
-         EDUCATION SECTION
-         ========================================== -->
-    <section id="education" style="background-color: var(--bg-secondary);">
-      <div class="container">
-        <h2 class="section-title reveal">Education &amp; Qualifications</h2>
-        <p class="section-subtitle reveal">Academic training grounding my theoretical systems and infrastructure
-          framework.</p>
-
-        <div class="timeline" style="max-width: 800px;">
-          <!-- Masters degree -->
-          <div class="timeline-item reveal">
-            <div class="timeline-dot"></div>
-            <div class="timeline-card">
-              <div class="timeline-header">
-                <div>
-                  <h3 class="timeline-role">MSc Information Technology Management</h3>
-                  <p class="timeline-company">Berlin School of Business and Innovation (BSBI), University of Creative
-                    Arts</p>
+              <div class="skill-card" data-level="1">
+                <span class="skill-name">German</span>
+                <div class="skill-dots">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
                 </div>
-                <span class="timeline-duration">05/2025 – Present</span>
-              </div>
-              <p
-                style="font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">
-                Berlin, Germany</p>
-              <div class="timeline-desc" style="margin-top: 0.5rem;">
-                <p>Postgraduate study focusing on business IT architectures, project operations, enterprise compliance,
-                  and advanced cloud systems methodologies.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Bachelors degree -->
-          <div class="timeline-item reveal delay-100">
-            <div class="timeline-dot"></div>
-            <div class="timeline-card">
-              <div class="timeline-header">
-                <div>
-                  <h3 class="timeline-role">Bachelor of Computer Applications (BCA)</h3>
-                  <p class="timeline-company">Guru Nanak College</p>
-                </div>
-                <span class="timeline-duration">06/2019 – 07/2022</span>
-              </div>
-              <p
-                style="font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">
-                Chennai, India</p>
-              <div class="timeline-desc" style="margin-top: 0.5rem;">
-                <p>Graduated with a core score of <strong>80%</strong>. Groundwork in computer science core principles,
-                  relational databases, data structures, network configuration, and systems analysis.</p>
               </div>
             </div>
           </div>

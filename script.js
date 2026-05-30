@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollspy();
   initContactForm();
   initCurrentYear();
+  initBackgroundCanvas();
 });
 
 /* ==========================================
@@ -33,13 +34,13 @@ function initTheme() {
   const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   
   // Set initial theme
-  if (savedTheme === 'light') {
-    setTheme('light');
-  } else if (savedTheme === 'dark') {
+  if (savedTheme === 'dark') {
     setTheme('dark');
+  } else if (savedTheme === 'light') {
+    setTheme('light');
   } else {
-    // If no preference exists, follow system default
-    setTheme(systemPrefersDark ? 'dark' : 'light');
+    // If no preference exists, default to light mode
+    setTheme('light');
   }
 
   // Toggle theme click listener
@@ -140,9 +141,9 @@ function initScrollAnimations() {
       if (entry.isIntersecting) {
         entry.target.classList.add('active');
         
-        // Custom trigger for skill bar animations once their parent card is visible
+        // Custom trigger for skill dot animations once their parent card is visible
         if (entry.target.classList.contains('skills-category')) {
-          animateSkillBars(entry.target);
+          animateSkillDots(entry.target);
         }
         
         // Stop observing once animated to preserve resources
@@ -159,14 +160,18 @@ function initScrollAnimations() {
     revealObserver.observe(el);
   });
 
-  function animateSkillBars(categoryElement) {
+  function animateSkillDots(categoryElement) {
     const cards = categoryElement.querySelectorAll('.skill-card');
     cards.forEach(card => {
-      const fillBar = card.querySelector('.skill-bar-fill');
-      const targetPercent = card.getAttribute('data-percentage') || '0';
-      if (fillBar) {
-        fillBar.style.width = `${targetPercent}%`;
-      }
+      const dots = card.querySelectorAll('.dot');
+      const targetLevel = parseInt(card.getAttribute('data-level') || '0', 10);
+      dots.forEach((dot, index) => {
+        if (index < targetLevel) {
+          setTimeout(() => {
+            dot.classList.add('active');
+          }, index * 120);
+        }
+      });
     });
   }
 }
@@ -184,6 +189,7 @@ function initScrollspy() {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const id = entry.target.getAttribute('id');
+        window.activeSectionId = id;
         
         navLinks.forEach(link => {
           link.classList.remove('active');
@@ -240,21 +246,41 @@ function initContactForm() {
 
     // Interactive button loading state
     const originalBtnText = submitBtn.innerText;
-    submitBtn.innerText = 'Sending Message...';
+    submitBtn.innerText = 'Opening Mail Client...';
     submitBtn.disabled = true;
     submitBtn.style.opacity = '0.7';
 
-    // Simulate network server delay of 1.5 seconds
+    // Trigger redirection after a brief delay for modern visual feedback
     setTimeout(() => {
       // Restore button status
       submitBtn.innerText = originalBtnText;
       submitBtn.disabled = false;
       submitBtn.style.opacity = '1';
       
+      // Construct mailto link with pre-filled details for direct email delivery
+      const mailtoSubject = encodeURIComponent(`[Portfolio Inquiry] ${subject}`);
+      const mailtoBody = encodeURIComponent(
+        `Hi Krishnan,\n\n` +
+        `You have received a new contact inquiry from your portfolio website:\n\n` +
+        `----------------------------------------\n` +
+        `Sender Name: ${name}\n` +
+        `Sender Email: ${email}\n` +
+        `Subject: ${subject}\n` +
+        `----------------------------------------\n\n` +
+        `Message:\n${message}\n\n` +
+        `Best regards,\n` +
+        `${name}`
+      );
+      
+      const mailtoUrl = `mailto:krishnannarayanan2001@gmail.com?subject=${mailtoSubject}&body=${mailtoBody}`;
+      
+      // Redirect to mail client
+      window.location.href = mailtoUrl;
+      
       // Show elegant positive feedback
-      showStatus('Thank you, Krishnan! Your message has been sent successfully. I will get back to you shortly.', 'success');
+      showStatus('Success! Opening your default mail client to complete the message submission to krishnannarayanan2001@gmail.com...', 'success');
       form.reset();
-    }, 1500);
+    }, 800);
   });
 
   function showStatus(msg, statusType) {
@@ -279,4 +305,129 @@ function initCurrentYear() {
   if (currentYearSpan) {
     currentYearSpan.textContent = new Date().getFullYear().toString();
   }
+}
+
+/* ==========================================
+   7. ANIMATED CANVAS BACKGROUND SYSTEM
+   ========================================== */
+function initBackgroundCanvas() {
+  const canvas = document.getElementById('bg-canvas');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  let animationFrameId;
+  let width = (canvas.width = window.innerWidth);
+  let height = (canvas.height = window.innerHeight);
+
+  // Core configurations
+  let particleCount = 75;
+  const particles = [];
+  
+  // Section-aware interactive settings (will ease smoothly)
+  let speedFactor = 0.5;
+  let maxDistance = 110;
+  let targetSpeedFactor = 0.5;
+  let targetMaxDistance = 110;
+
+  // Initialize activeSectionId
+  window.activeSectionId = 'hero';
+
+  // Handle window resizing
+  window.addEventListener('resize', () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  });
+
+  // Particle Class Definition
+  class Particle {
+    constructor() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.vx = (Math.random() - 0.5) * 1.5;
+      this.vy = (Math.random() - 0.5) * 1.5;
+      this.radius = Math.random() * 3 + 2;
+    }
+
+    update() {
+      // Apply the dynamic speed factor
+      this.x += this.vx * speedFactor;
+      this.y += this.vy * speedFactor;
+
+      // Boundary bouncing
+      if (this.x < 0 || this.x > width) this.vx *= -1;
+      if (this.y < 0 || this.y > height) this.vy *= -1;
+    }
+
+    draw(color) {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.fill();
+    }
+  }
+
+  // Populate particles array
+  for (let i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
+  }
+
+  // Animation render loop
+  function render() {
+    ctx.clearRect(0, 0, width, height);
+
+    // Get current theme parameters
+    const isLightMode = document.documentElement.getAttribute('data-theme') === 'light';
+    
+    // Choose theme colors (Teal for light theme, glowing Teal/Cyan for dark theme)
+    const particleColor = isLightMode ? 'rgba(13, 148, 136, 0.55)' : 'rgba(20, 240, 200, 0.65)';
+    const lineColor = isLightMode ? 'rgba(13, 148, 136, ' : 'rgba(20, 240, 200, ';
+
+    // Transition settings smoothly according to current active content section
+    const currentSection = window.activeSectionId || 'hero';
+    if (currentSection === 'accomplishments' || currentSection === 'skills') {
+      targetSpeedFactor = 0.85; // Faster, higher data flows
+      targetMaxDistance = 135;  // Highly connected node mesh
+    } else if (currentSection === 'contact') {
+      targetSpeedFactor = 0.3;  // Slower, calming ambient drift
+      targetMaxDistance = 90;   // Minimal connection tracks
+    } else {
+      targetSpeedFactor = 0.5;  // Standard pace
+      targetMaxDistance = 110;
+    }
+
+    // Ease variables towards targets (linear interpolation)
+    speedFactor += (targetSpeedFactor - speedFactor) * 0.05;
+    maxDistance += (targetMaxDistance - maxDistance) * 0.05;
+
+    // Update and draw particles
+    particles.forEach(p => {
+      p.update();
+      p.draw(particleColor);
+    });
+
+    // Draw mesh connection lines
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < maxDistance) {
+          // Calculate opacity based on proximity (further = fainter)
+          const alpha = (1 - dist / maxDistance) * (isLightMode ? 0.25 : 0.38);
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = lineColor + alpha + ')';
+          ctx.lineWidth = 1.35;
+          ctx.stroke();
+        }
+      }
+    }
+
+    animationFrameId = requestAnimationFrame(render);
+  }
+
+  // Initiate loops
+  render();
 }
