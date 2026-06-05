@@ -50,7 +50,19 @@
         <a href="#contact" class="nav-link" id="nav-contact">Contact</a>
       </nav>
 
-      <div style="display: flex; gap: 0.75rem; align-items: center;">
+      <div class="header-actions">
+        <!-- Accent Preset Toggle Button -->
+        <button class="theme-toggle" id="preset-switcher-btn" aria-label="Toggle color theme preset"
+          title="Change color theme">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 14.7255 3.09032 17.1962 4.85857 19C5.03345 19.1749 5.29893 19.229 5.52988 19.1369C5.76083 19.0448 5.91893 18.8228 5.92988 18.5728C5.9723 17.6009 6.77259 16.8286 7.74609 16.8286C8.21989 16.8286 8.65349 17.0205 8.97109 17.3381C9.28869 17.6557 9.8703 18.5992 10.1586 19.2555C10.5186 20.0754 11.2183 22 12 22ZM12 22V22Z"></path>
+            <circle cx="7.5" cy="10.5" r="1.5" fill="currentColor"></circle>
+            <circle cx="11.5" cy="7.5" r="1.5" fill="currentColor"></circle>
+            <circle cx="16.5" cy="9.5" r="1.5" fill="currentColor"></circle>
+            <circle cx="15.5" cy="14.5" r="1.5" fill="currentColor"></circle>
+          </svg>
+        </button>
+
         <!-- Theme Toggle Button -->
         <button class="theme-toggle" id="theme-switcher-btn" aria-label="Toggle dark and light theme"
           title="Toggle theme">
@@ -140,10 +152,9 @@
           </div>
         </div>
 
-        <!-- Interactive Card Visual -->
         <div class="hero-visual reveal delay-200">
           <div class="hero-mesh"></div>
-          <div class="hero-avatar-card" style="width: px;">
+          <div class="hero-avatar-card">
             <img src="images/krishnan.jpg" alt="Krishnan Narayanan Portrait" class="hero-avatar-image" id="hero-graphic"
               style="height: 310px; object-fit: cover;">
             <div class="avatar-info">
@@ -473,11 +484,9 @@
         <p class="section-subtitle reveal">Verified credentials and professional accolades validating my administrative
           background.</p>
 
-        <div
-          style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md); margin-bottom: var(--spacing-lg);">
+        <div class="certifications-grid">
           <!-- Certification Card -->
-          <div class="stat-card reveal"
-            style="text-align: left; padding: 2.5rem; display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+          <div class="certification-card reveal">
             <div>
               <div class="hero-badge"
                 style="background-color: rgba(239, 68, 68, 0.1); color: rgb(248, 113, 113); border-color: rgba(239, 68, 68, 0.2);">
@@ -509,8 +518,7 @@
           </div>
 
           <!-- Achievements Card -->
-          <div class="stat-card reveal delay-100"
-            style="text-align: left; padding: 2.5rem; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+          <div class="certification-card reveal delay-100">
             <div>
               <div class="hero-badge"
                 style="background-color: var(--accent-glow); color: var(--accent); border-color: var(--border-glass);">

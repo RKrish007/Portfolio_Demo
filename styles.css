@@ -60,6 +60,23 @@
   --timeline-dot: hsl(172, 100%, 43%);
 }
 
+/* Color Preset Theme: Obsidian Indigo (Alternative Choice) */
+html[data-preset="indigo"] {
+  --accent: hsl(262, 80%, 50%);
+  --accent-glow: rgba(124, 58, 237, 0.08);
+  --accent-secondary: hsl(280, 80%, 45%);
+  --accent-gradient: linear-gradient(135deg, hsl(262, 80%, 50%) 0%, hsl(217, 91%, 60%) 100%);
+  --timeline-dot: hsl(262, 80%, 50%);
+}
+
+html[data-preset="indigo"][data-theme="dark"] {
+  --accent: hsl(263, 90%, 65%);
+  --accent-glow: rgba(167, 139, 250, 0.12);
+  --accent-secondary: hsl(280, 90%, 65%);
+  --accent-gradient: linear-gradient(135deg, hsl(263, 90%, 65%) 0%, hsl(217, 100%, 70%) 100%);
+  --timeline-dot: hsl(263, 90%, 65%);
+}
+
 /* ==========================================
    BASE STYLES & RESET
    ========================================== */
@@ -245,6 +262,12 @@ header {
 
 .nav-links a.active::after {
   width: 100%;
+}
+
+.header-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
 }
 
 /* Theme Switcher Button */
@@ -446,6 +469,7 @@ header {
   border-radius: var(--border-radius-lg);
   padding: 1.5rem;
   width: 320px;
+  max-width: 100%;
   box-shadow: var(--shadow-lg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -642,11 +666,40 @@ header {
 }
 
 /* ==========================================
+   CERTIFICATIONS SECTION
+   ========================================== */
+.certifications-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.certification-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--border-radius-lg);
+  padding: 2.5rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  transition: var(--transition-smooth);
+}
+
+.certification-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ==========================================
    PROJECTS SECTION
    ========================================== */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
   gap: var(--spacing-md);
 }
 
@@ -796,7 +849,7 @@ header {
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
   gap: var(--spacing-sm);
 }
 
@@ -906,6 +959,12 @@ header {
 .contact-info-details p:last-child {
   font-size: 1.1rem;
   font-weight: 600;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.contact-info-details p:last-child a {
+  word-break: break-all;
 }
 
 /* Form Styling */
@@ -1068,7 +1127,6 @@ footer {
     grid-template-columns: 1fr;
   }
 }
-
 @media (max-width: 768px) {
   .nav-links {
     position: fixed;
@@ -1087,6 +1145,8 @@ footer {
     pointer-events: none;
     transition: var(--transition-smooth);
     z-index: 999;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
   }
   
   .nav-links.open {
@@ -1123,8 +1183,75 @@ footer {
   .about-stats {
     grid-template-columns: 1fr;
   }
+  
+  :root {
+    --spacing-md: 1.25rem;
+    --spacing-lg: 2.25rem;
+    --spacing-xl: 4.5rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .timeline-card {
+    padding: 1.25rem;
+  }
+
+  .certifications-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .certification-card {
+    padding: 1.5rem;
+  }
+
+  .contact-card {
+    padding: 1.5rem;
+  }
+
+  .contact-form {
+    padding: 1.5rem;
+  }
+
+  .skills-category {
+    padding: 1.25rem;
+  }
+
+  .hero-mesh {
+    width: 100%;
+    height: 100%;
+  }
 }
 
+@media (max-width: 400px) {
+  :root {
+    --spacing-md: 0.75rem;
+  }
+  
+  .logo {
+    font-size: 1.15rem;
+  }
+  
+  .theme-toggle, .mobile-nav-toggle {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .theme-toggle svg, .mobile-nav-toggle svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .header-actions {
+    gap: 0.5rem;
+  }
+}
 /* ==========================================
    ANIMATED CANVAS BACKGROUND
    ========================================== */

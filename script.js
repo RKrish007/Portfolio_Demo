@@ -11,6 +11,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
+  initPresetSwitcher();
   initMobileMenu();
   initScrollAnimations();
   initScrollspy();
@@ -70,6 +71,37 @@ function initTheme() {
       setTheme(e.matches ? 'dark' : 'light');
     }
   });
+}
+
+/* ==========================================
+   1.5 ACCENT COLOR PRESET SWITCHER LOGIC
+   ========================================== */
+function initPresetSwitcher() {
+  const presetToggleBtn = document.getElementById('preset-switcher-btn');
+  if (!presetToggleBtn) return;
+
+  // Retrieve cached preset preference or default to 'teal'
+  const savedPreset = localStorage.getItem('preset') || 'teal';
+  setPreset(savedPreset);
+
+  presetToggleBtn.addEventListener('click', () => {
+    const currentPreset = document.documentElement.getAttribute('data-preset') || 'teal';
+    const nextPreset = currentPreset === 'teal' ? 'indigo' : 'teal';
+    setPreset(nextPreset);
+  });
+
+  function setPreset(preset) {
+    document.documentElement.setAttribute('data-preset', preset);
+    localStorage.setItem('preset', preset);
+    
+    // Smooth rotate transition to switcher icon for visual delight
+    const svgIcon = presetToggleBtn.querySelector('svg');
+    if (svgIcon) {
+      svgIcon.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+      // Rotate by 90 deg when toggled
+      svgIcon.style.transform = preset === 'indigo' ? 'rotate(90deg)' : 'rotate(0deg)';
+    }
+  }
 }
 
 /* ==========================================
@@ -332,10 +364,14 @@ function initBackgroundCanvas() {
   // Initialize activeSectionId
   window.activeSectionId = 'hero';
 
-  // Handle window resizing
+  // Handle window resizing (only re-init if width changes to prevent mobile scroll resize loops)
+  let lastWidth = window.innerWidth;
   window.addEventListener('resize', () => {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
+    if (window.innerWidth !== lastWidth) {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      lastWidth = window.innerWidth;
+    }
   });
 
   // Particle Class Definition
@@ -378,9 +414,18 @@ function initBackgroundCanvas() {
     // Get current theme parameters
     const isLightMode = document.documentElement.getAttribute('data-theme') === 'light';
     
-    // Choose theme colors (Teal for light theme, glowing Teal/Cyan for dark theme)
-    const particleColor = isLightMode ? 'rgba(13, 148, 136, 0.55)' : 'rgba(20, 240, 200, 0.65)';
-    const lineColor = isLightMode ? 'rgba(13, 148, 136, ' : 'rgba(20, 240, 200, ';
+    // Get active color preset (Teal vs Indigo)
+    const activePreset = document.documentElement.getAttribute('data-preset') || 'teal';
+
+    // Choose theme colors matching the active preset
+    let particleColor, lineColor;
+    if (activePreset === 'indigo') {
+      particleColor = isLightMode ? 'rgba(124, 58, 237, 0.55)' : 'rgba(167, 139, 250, 0.65)';
+      lineColor = isLightMode ? 'rgba(124, 58, 237, ' : 'rgba(167, 139, 250, ';
+    } else {
+      particleColor = isLightMode ? 'rgba(13, 148, 136, 0.55)' : 'rgba(20, 240, 200, 0.65)';
+      lineColor = isLightMode ? 'rgba(13, 148, 136, ' : 'rgba(20, 240, 200, ';
+    }
 
     // Transition settings smoothly according to current active content section
     const currentSection = window.activeSectionId || 'hero';
